@@ -1,0 +1,17 @@
+[package]
+name = "an-inkwell"
+version = "0.1.0"
+edition = "2024"
+description = "Astery's Narrower Inkwell"
+repository = "https://github.com/Censera/an-inkwell"
+readme = "README.md"
+license = "Apache-2.0"
+keywords = ["llvm", "compiler", "codegen"]
+categories = ["development-tools::ffi"]
+
+[lib]
+name = "an_inkwell"
+path = "src/lib.rs"
+
+[dependencies]
+llvm-sys = "221.0.0"
