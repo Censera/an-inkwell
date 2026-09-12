@@ -15,6 +15,7 @@ mod module;
 mod phi;
 mod returns;
 mod r#type;
+mod target;
 mod value;
 
 pub use block::Block;
@@ -24,6 +25,7 @@ pub use error::Error;
 pub use function::Function;
 pub use module::Module;
 pub use r#type::Type;
+pub use target::{initialize_targets, Architecture, TargetMachine};
 pub use value::Value;
 
 #[cfg(test)]
