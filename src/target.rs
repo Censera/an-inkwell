@@ -8,11 +8,14 @@ use llvm_sys::target::{
     LLVMInitializeX86TargetInfo, LLVMInitializeX86TargetMC, LLVMSetModuleDataLayout,
 };
 use llvm_sys::target_machine::{
-    LLVMCodeGenFileType, LLVMCodeGenLevelDefault, LLVMCodeModelDefault, LLVMCreateTargetDataLayout,
-    LLVMCreateTargetMachine, LLVMDisposeTargetData, LLVMDisposeTargetMachine,
-    LLVMGetTargetFromTriple, LLVMRelocDefault, LLVMTargetMachineEmitToFile, LLVMTargetMachineRef,
-    LLVMTargetRef,
+    LLVMCodeGenFileType, LLVMCodeGenOptLevel, LLVMCodeModel, LLVMCreateTargetDataLayout,
+    LLVMCreateTargetMachine, LLVMDisposeTargetMachine, LLVMGetTargetFromTriple, LLVMRelocMode,
+    LLVMTargetMachineEmitToFile, LLVMTargetMachineRef, LLVMTargetRef,
 };
+use llvm_sys::target_machine::{
+    LLVMCodeGenLevelDefault, LLVMCodeModelDefault, LLVMRelocDefault,
+};
+use llvm_sys::target::{LLVMDisposeTargetData};
 
 use crate::{Error, Module};
 
@@ -81,9 +84,9 @@ impl TargetMachine {
                 triple.as_ptr(),
                 c"".as_ptr(),
                 c"".as_ptr(),
-                LLVMCodeGenLevelDefault,
-                LLVMRelocDefault,
-                LLVMCodeModelDefault,
+                LLVMCodeGenOptLevel::LLVMCodeGenLevelDefault,
+                LLVMRelocMode::LLVMRelocDefault,
+                LLVMCodeModel::LLVMCodeModelDefault,
             )
         };
 
