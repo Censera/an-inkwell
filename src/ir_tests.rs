@@ -15,14 +15,14 @@ fn builds_integer_arithmetic() {
     let first = Value::integer(&integer, 20, true);
     let second = Value::integer(&integer, 4, true);
 
-    assert!(builder.add(&first, &second).unwrap().as_ir().contains("add i32 20, 4"));
-    assert!(builder.sub(&first, &second).unwrap().as_ir().contains("sub i32 20, 4"));
-    assert!(builder.mul(&first, &second).unwrap().as_ir().contains("mul i32 20, 4"));
-    assert!(builder.sdiv(&first, &second).unwrap().as_ir().contains("sdiv i32 20, 4"));
-    assert!(builder.udiv(&first, &second).unwrap().as_ir().contains("udiv i32 20, 4"));
-    assert!(builder.srem(&first, &second).unwrap().as_ir().contains("srem i32 20, 4"));
-    assert!(builder.urem(&first, &second).unwrap().as_ir().contains("urem i32 20, 4"));
-    assert!(builder.neg(&first).unwrap().as_ir().contains("sub i32 0, 20"));
+    assert!(builder.add(&first, &second).unwrap().as_ir().contains("i32 24"));
+    assert!(builder.sub(&first, &second).unwrap().as_ir().contains("i32 16"));
+    assert!(builder.mul(&first, &second).unwrap().as_ir().contains("i32 80"));
+    assert!(builder.sdiv(&first, &second).unwrap().as_ir().contains("i32 5"));
+    assert!(builder.udiv(&first, &second).unwrap().as_ir().contains("i32 5"));
+    assert!(builder.srem(&first, &second).unwrap().as_ir().contains("i32 0"));
+    assert!(builder.urem(&first, &second).unwrap().as_ir().contains("i32 0"));
+    assert!(builder.neg(&first).unwrap().as_ir().contains("i32 -20"));
 }
 
 #[test]
@@ -40,12 +40,12 @@ fn builds_floating_arithmetic() {
     let first = Value::float(&float, 20.0);
     let second = Value::float(&float, 4.0);
 
-    assert!(builder.fadd(&first, &second).unwrap().as_ir().contains("fadd double"));
-    assert!(builder.fsub(&first, &second).unwrap().as_ir().contains("fsub double"));
-    assert!(builder.fmul(&first, &second).unwrap().as_ir().contains("fmul double"));
-    assert!(builder.fdiv(&first, &second).unwrap().as_ir().contains("fdiv double"));
-    assert!(builder.frem(&first, &second).unwrap().as_ir().contains("frem double"));
-    assert!(builder.fneg(&first).unwrap().as_ir().contains("fneg double"));
+    assert!(builder.fadd(&first, &second).unwrap().as_ir().contains("double 2.400000e+01"));
+    assert!(builder.fsub(&first, &second).unwrap().as_ir().contains("double 1.600000e+01"));
+    assert!(builder.fmul(&first, &second).unwrap().as_ir().contains("double 8.000000e+01"));
+    assert!(builder.fdiv(&first, &second).unwrap().as_ir().contains("double 5.000000e+00"));
+    assert!(builder.frem(&first, &second).unwrap().as_ir().contains("double 0.000000e+00"));
+    assert!(builder.fneg(&first).unwrap().as_ir().contains("double -2.000000e+01"));
 }
 
 #[test]
