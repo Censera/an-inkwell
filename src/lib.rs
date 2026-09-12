@@ -1,14 +1,20 @@
+mod block;
 mod builder;
 mod context;
 mod error;
+mod function;
 mod module;
-mod type_;
+mod r#type;
+mod value;
 
+pub use block::Block;
 pub use builder::Builder;
 pub use context::Context;
 pub use error::Error;
+pub use function::Function;
 pub use module::Module;
-pub use type_::Type;
+pub use r#type::Type;
+pub use value::Value;
 
 #[cfg(test)]
 mod tests {
@@ -44,3 +50,6 @@ mod tests {
 
 #[cfg(test)]
 mod type_tests;
+
+#[cfg(test)]
+mod values_tests;

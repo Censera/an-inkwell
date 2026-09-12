@@ -3,7 +3,7 @@ use std::ptr::NonNull;
 use llvm_sys::core::{LLVMDisposeMessage, LLVMDisposeModule, LLVMPrintModuleToString};
 use llvm_sys::prelude::LLVMModuleRef;
 
-use crate::{Context, Error};
+use crate::{Context, Error, Function, Type};
 
 pub struct Module<'ctx> {
     context: &'ctx Context,
@@ -21,6 +21,10 @@ impl<'ctx> Module<'ctx> {
 
     pub fn context(&self) -> &Context {
         self.context
+    }
+
+    pub fn function(&self, name: &str, function_type: &Type<'ctx>) -> Result<Function<'ctx>, Error> {
+        Function::from_module(self, name, function_type)
     }
 
     pub fn as_ir(&self) -> String {

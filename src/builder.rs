@@ -1,6 +1,6 @@
 use std::ptr::NonNull;
 
-use llvm_sys::core::{LLVMCreateBuilderInContext, LLVMDisposeBuilder};
+use llvm_sys::core::LLVMDisposeBuilder;
 use llvm_sys::prelude::LLVMBuilderRef;
 
 use crate::{Context, Error};

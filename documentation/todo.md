@@ -24,12 +24,12 @@
 
 ## Values
 
-- [ ] Add integer constants.
-- [ ] Add floating-point constants.
-- [ ] Add pointer values.
-- [ ] Add aggregate values.
-- [ ] Add function values.
-- [ ] Add basic blocks.
+- [x] Add integer constants.
+- [x] Add floating-point constants.
+- [x] Add pointer values.
+- [x] Add aggregate values.
+- [x] Add function values.
+- [x] Add basic blocks.
 
 ## IR
 

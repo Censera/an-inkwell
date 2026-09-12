@@ -6,6 +6,10 @@ pub enum Error {
     ModuleCreation,
     BuilderCreation,
     DifferentContext,
+    NotPointerType,
+    EmptyAggregate,
+    FunctionCreation,
+    BlockCreation,
 }
 
 impl From<NulError> for Error {
@@ -20,7 +24,11 @@ impl std::fmt::Display for Error {
             Self::Name(error) => write!(formatter, "LLVM name contains an interior NUL: {error}"),
             Self::ModuleCreation => formatter.write_str("LLVM failed to create a module"),
             Self::BuilderCreation => formatter.write_str("LLVM failed to create a builder"),
-            Self::DifferentContext => formatter.write_str("LLVM types belong to different contexts"),
+            Self::DifferentContext => formatter.write_str("LLVM values or types belong to different contexts"),
+            Self::NotPointerType => formatter.write_str("LLVM null value requires a pointer type"),
+            Self::EmptyAggregate => formatter.write_str("LLVM aggregate value requires at least one value"),
+            Self::FunctionCreation => formatter.write_str("LLVM failed to create a function"),
+            Self::BlockCreation => formatter.write_str("LLVM failed to create a basic block"),
         }
     }
 }
