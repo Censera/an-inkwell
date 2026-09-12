@@ -68,7 +68,9 @@ mod tests {
         let integer = Type::i32(&context);
         let argument = Value::integer(&integer, 42, false);
 
-        let call = builder.call(&function_type, &function, &[argument]).unwrap();
+        let call = builder
+            .call(&function_type, &function, &[argument])
+            .unwrap();
 
         assert!(call.as_ir().contains("call i32 @add"));
         assert!(module.as_ir().contains("call i32 @add"));

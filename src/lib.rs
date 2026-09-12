@@ -11,8 +11,8 @@ mod function;
 mod ir_tests;
 mod load_store;
 mod module;
-mod r#type;
 mod returns;
+mod r#type;
 mod value;
 
 pub use block::Block;

@@ -23,13 +23,7 @@ mod tests {
     use super::Builder;
     use crate::{Context, Type, Value};
 
-    fn function(
-        context: &Context,
-    ) -> (
-        crate::Module<'_>,
-        Builder<'_>,
-        crate::Block<'_>,
-    ) {
+    fn function(context: &Context) -> (crate::Module<'_>, Builder<'_>, crate::Block<'_>) {
         let module = context.module("test").unwrap();
         let builder = context.builder().unwrap();
         let function_type = Type::function(&Type::i32(context), &[], false).unwrap();
