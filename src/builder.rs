@@ -1,13 +1,14 @@
 use std::ptr::NonNull;
 
 use llvm_sys::core::{
-    LLVMBuildAdd, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv, LLVMBuildFMul, LLVMBuildFNeg,
-    LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildMul, LLVMBuildNeg, LLVMBuildSDiv,
-    LLVMBuildSRem, LLVMBuildSub, LLVMBuildUDiv, LLVMBuildURem, LLVMDisposeBuilder,
-    LLVMPositionBuilderAtEnd,
+    LLVMBuildAdd, LLVMBuildAnd, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv, LLVMBuildFMul,
+    LLVMBuildFNeg, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildMul, LLVMBuildNeg,
+    LLVMBuildNot, LLVMBuildOr, LLVMBuildSDiv, LLVMBuildSRem, LLVMBuildSub, LLVMBuildUDiv,
+    LLVMBuildURem, LLVMDisposeBuilder, LLVMGetIntTypeWidth, LLVMGetTypeKind,
+    LLVMPositionBuilderAtEnd, LLVMTypeOf,
 };
-use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate};
 use llvm_sys::prelude::LLVMBuilderRef;
+use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate, LLVMTypeKind};
 
 use crate::{Block, Context, Error, Value};
 
@@ -240,6 +241,30 @@ impl<'ctx> Builder<'ctx> {
         Ok(Value::from_raw(self.context, raw))
     }
 
+    pub fn logical_and(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check_boolean(left, right)?;
+        let raw = unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn logical_or(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check_boolean(left, right)?;
+        let raw = unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn logical_not(&self, value: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        if !std::ptr::eq(self.context, value.context()) {
+            return Err(Error::DifferentContext);
+        }
+        if !is_boolean(value) {
+            return Err(Error::NotBoolean);
+        }
+
+        let raw = unsafe { LLVMBuildNot(self.as_raw(), value.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
     fn check(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<(), Error> {
         if !std::ptr::eq(self.context, left.context()) || !std::ptr::eq(self.context, right.context()) {
             return Err(Error::DifferentContext);
@@ -248,8 +273,24 @@ impl<'ctx> Builder<'ctx> {
         Ok(())
     }
 
+    fn check_boolean(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<(), Error> {
+        self.check(left, right)?;
+        if !is_boolean(left) || !is_boolean(right) {
+            return Err(Error::NotBoolean);
+        }
+
+        Ok(())
+    }
+
     pub(crate) fn as_raw(&self) -> LLVMBuilderRef {
         self.raw.as_ptr().cast()
+    }
+}
+
+fn is_boolean(value: &Value<'_>) -> bool {
+    let ty = unsafe { LLVMTypeOf(value.as_raw()) };
+    unsafe {
+        LLVMGetTypeKind(ty) == LLVMTypeKind::LLVMIntegerTypeKind && LLVMGetIntTypeWidth(ty) == 1
     }
 }
 
