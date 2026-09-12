@@ -4,25 +4,26 @@ use crate::{Builder, Error, Type, Value};
 
 impl<'ctx> Builder<'ctx> {
     pub fn alloca(&self, ty: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
-        if !std::ptr::eq(self.context(), ty.context()) {
+        if !std::ptr::eq(self.context, ty.context()) {
             return Err(Error::DifferentContext);
         }
 
         let raw = unsafe { LLVMBuildAlloca(self.as_raw(), ty.as_raw(), c"".as_ptr()) };
-        Ok(Value::from_raw(self.context(), raw))
+        Ok(Value::from_raw(self.context, raw))
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{Builder, Context, Error, Type};
+    use super::Builder;
+    use crate::{Context, Error, Type};
 
     fn function(
         context: &Context,
     ) -> (
-        super::super::Module<'_>,
+        crate::Module<'_>,
         Builder<'_>,
-        super::super::Block<'_>,
+        crate::Block<'_>,
     ) {
         let module = context.module("test").unwrap();
         let builder = context.builder().unwrap();
@@ -39,13 +40,11 @@ mod tests {
         let (_module, builder, _block) = function(&context);
         let integer = Type::i32(&context);
 
-        assert!(
-            builder
-                .alloca(&integer)
-                .unwrap()
-                .as_ir()
-                .contains("alloca i32")
-        );
+        assert!(builder
+            .alloca(&integer)
+            .unwrap()
+            .as_ir()
+            .contains("alloca i32"));
     }
 
     #[test]
