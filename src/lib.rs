@@ -14,8 +14,8 @@ mod load_store;
 mod module;
 mod phi;
 mod returns;
-mod r#type;
 mod target;
+mod r#type;
 mod value;
 
 pub use block::Block;
@@ -24,8 +24,8 @@ pub use context::Context;
 pub use error::Error;
 pub use function::Function;
 pub use module::Module;
+pub use target::{Architecture, TargetMachine, initialize_targets};
 pub use r#type::Type;
-pub use target::{initialize_targets, Architecture, TargetMachine};
 pub use value::Value;
 
 #[cfg(test)]

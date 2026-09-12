@@ -43,10 +43,18 @@ impl std::fmt::Display for Error {
             Self::FunctionCreation => formatter.write_str("LLVM failed to create a function"),
             Self::BlockCreation => formatter.write_str("LLVM failed to create a basic block"),
             Self::TargetCreation(error) => write!(formatter, "LLVM target lookup failed: {error}"),
-            Self::UnsupportedTarget => formatter.write_str("LLVM target is outside the supported architectures"),
-            Self::TargetMachineCreation => formatter.write_str("LLVM failed to create a target machine"),
-            Self::TargetDataLayoutCreation => formatter.write_str("LLVM failed to create target data layout"),
-            Self::ObjectEmission(error) => write!(formatter, "LLVM object emission failed: {error}"),
+            Self::UnsupportedTarget => {
+                formatter.write_str("LLVM target is outside the supported architectures")
+            }
+            Self::TargetMachineCreation => {
+                formatter.write_str("LLVM failed to create a target machine")
+            }
+            Self::TargetDataLayoutCreation => {
+                formatter.write_str("LLVM failed to create target data layout")
+            }
+            Self::ObjectEmission(error) => {
+                write!(formatter, "LLVM object emission failed: {error}")
+            }
         }
     }
 }

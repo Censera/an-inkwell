@@ -1,17 +1,16 @@
 use std::ffi::CString;
-use std::ptr::{null_mut, NonNull};
+use std::ptr::{NonNull, null_mut};
 
 use llvm_sys::core::{LLVMDisposeMessage, LLVMSetTarget};
 use llvm_sys::target::{
-    LLVMInitializeAArch64AsmPrinter, LLVMInitializeAArch64Target,
-    LLVMInitializeAArch64TargetInfo, LLVMInitializeAArch64TargetMC, LLVMInitializeX86AsmPrinter,
-    LLVMInitializeX86Target, LLVMInitializeX86TargetInfo, LLVMInitializeX86TargetMC,
-    LLVMSetModuleDataLayout,
+    LLVMInitializeAArch64AsmPrinter, LLVMInitializeAArch64Target, LLVMInitializeAArch64TargetInfo,
+    LLVMInitializeAArch64TargetMC, LLVMInitializeX86AsmPrinter, LLVMInitializeX86Target,
+    LLVMInitializeX86TargetInfo, LLVMInitializeX86TargetMC, LLVMSetModuleDataLayout,
 };
 use llvm_sys::target_machine::{
     LLVMCodeGenFileType, LLVMCodeGenLevelDefault, LLVMCodeModelDefault, LLVMCreateTargetDataLayout,
     LLVMCreateTargetMachine, LLVMDisposeTargetData, LLVMDisposeTargetMachine,
-    LLVMGetTargetFromTriple, LLVMTargetMachineEmitToFile, LLVMTargetMachineRef, LLVMRelocDefault,
+    LLVMGetTargetFromTriple, LLVMRelocDefault, LLVMTargetMachineEmitToFile, LLVMTargetMachineRef,
     LLVMTargetRef,
 };
 
@@ -66,9 +65,8 @@ impl TargetMachine {
         let triple = CString::new(triple)?;
         let mut target: LLVMTargetRef = null_mut();
         let mut error = null_mut();
-        let failed = unsafe {
-            LLVMGetTargetFromTriple(triple.as_ptr(), &mut target, &mut error)
-        } != 0;
+        let failed =
+            unsafe { LLVMGetTargetFromTriple(triple.as_ptr(), &mut target, &mut error) } != 0;
 
         if failed || target.is_null() {
             return Err(Error::TargetCreation(take_llvm_error(error)));
@@ -151,7 +149,7 @@ fn take_llvm_error(error: *mut std::ffi::c_char) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{initialize_targets, Architecture, TargetMachine};
+    use super::{Architecture, TargetMachine, initialize_targets};
     use crate::{Context, Type};
 
     #[test]
