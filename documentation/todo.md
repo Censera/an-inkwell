@@ -43,7 +43,7 @@ The workflow requires taking the first unchecked item and completing it before a
 - [x] Add allocation.
 - [x] Add load and store.
 - [x] Add address calculation.
-- [ ] Add aggregate access.
+- [x] Add aggregate access.
 - [ ] Add calls.
 - [ ] Add returns.
 - [ ] Add branches.
