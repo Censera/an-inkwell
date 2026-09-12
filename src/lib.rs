@@ -1,4 +1,5 @@
 mod address;
+mod aggregate;
 mod allocation;
 mod block;
 mod builder;
