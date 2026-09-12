@@ -43,17 +43,18 @@ impl<'ctx> Function<'ctx> {
     }
 
     pub(crate) fn from_module(
-        module: &'ctx Module<'ctx>,
+        module: &Module<'ctx>,
         name: &str,
         function_type: &Type<'ctx>,
     ) -> Result<Self, Error> {
-        if !std::ptr::eq(module.context(), function_type.context()) {
+        let context = module.context();
+        if !std::ptr::eq(context, function_type.context()) {
             return Err(Error::DifferentContext);
         }
 
         let name = std::ffi::CString::new(name)?;
         let raw = unsafe { LLVMAddFunction(module.as_raw(), name.as_ptr(), function_type.as_raw()) };
-        Self::from_raw(module.context(), raw)
+        Self::from_raw(context, raw)
     }
 
     pub(crate) fn as_raw(&self) -> LLVMValueRef {

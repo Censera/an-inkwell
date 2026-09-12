@@ -24,7 +24,7 @@ impl<'ctx> Module<'ctx> {
     }
 
     pub fn function(
-        &'ctx self,
+        &self,
         name: &str,
         function_type: &Type<'ctx>,
     ) -> Result<Function<'ctx>, Error> {
