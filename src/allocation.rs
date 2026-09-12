@@ -9,7 +9,7 @@ impl<'ctx> Builder<'ctx> {
         }
 
         let raw = unsafe { LLVMBuildAlloca(self.as_raw(), ty.as_raw(), c"".as_ptr()) };
-        Ok(Value::from_raw(self.context(), raw))
+        Ok(Value::from_raw(ty.context(), raw))
     }
 }
 
