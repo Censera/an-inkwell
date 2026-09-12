@@ -39,7 +39,7 @@ The workflow requires taking the first unchecked item and completing it before a
 - [x] Add comparison operations.
 - [x] Add logical operations.
 - [x] Add bitwise operations.
-- [ ] Add casts.
+- [x] Add casts.
 - [ ] Add allocation.
 - [ ] Add load and store.
 - [ ] Add address calculation.
