@@ -7,8 +7,9 @@ use crate::{Builder, Error, Value};
 impl<'ctx> Builder<'ctx> {
     pub fn extract_value(&self, aggregate: &Value<'ctx>, index: u32) -> Result<Value<'ctx>, Error> {
         self.check_aggregate_context(aggregate)?;
-        let raw =
-            unsafe { LLVMBuildExtractValue(self.as_raw(), aggregate.as_raw(), index, c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildExtractValue(self.as_raw(), aggregate.as_raw(), index, c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context(), raw))
     }
 
@@ -106,16 +107,20 @@ mod tests {
         )
         .unwrap();
 
-        assert!(builder
-            .extract_value(&value, 1)
-            .unwrap()
-            .as_ir()
-            .contains("i32 20"));
-        assert!(builder
-            .insert_value(&value, &Value::integer(&integer, 30, false), 1)
-            .unwrap()
-            .as_ir()
-            .contains("i32 30"));
+        assert!(
+            builder
+                .extract_value(&value, 1)
+                .unwrap()
+                .as_ir()
+                .contains("i32 20")
+        );
+        assert!(
+            builder
+                .insert_value(&value, &Value::integer(&integer, 30, false), 1)
+                .unwrap()
+                .as_ir()
+                .contains("i32 30")
+        );
     }
 
     #[test]
@@ -130,16 +135,20 @@ mod tests {
         .unwrap();
         let index = Value::integer(&integer, 1, false);
 
-        assert!(builder
-            .extract_element(&value, &index)
-            .unwrap()
-            .as_ir()
-            .contains("i32 20"));
-        assert!(builder
-            .insert_element(&value, &Value::integer(&integer, 30, false), &index)
-            .unwrap()
-            .as_ir()
-            .contains("i32 30"));
+        assert!(
+            builder
+                .extract_element(&value, &index)
+                .unwrap()
+                .as_ir()
+                .contains("i32 20")
+        );
+        assert!(
+            builder
+                .insert_element(&value, &Value::integer(&integer, 30, false), &index)
+                .unwrap()
+                .as_ir()
+                .contains("i32 30")
+        );
     }
 
     #[test]

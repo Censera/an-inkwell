@@ -10,9 +10,8 @@ impl<'ctx> Builder<'ctx> {
             return Err(Error::DifferentContext);
         }
 
-        let raw = unsafe {
-            LLVMBuildLoad2(self.as_raw(), ty.as_raw(), pointer.as_raw(), c"".as_ptr())
-        };
+        let raw =
+            unsafe { LLVMBuildLoad2(self.as_raw(), ty.as_raw(), pointer.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context(), raw))
     }
 
@@ -52,7 +51,13 @@ mod tests {
         let value = Value::integer(&integer, 42, false);
 
         assert!(builder.store(&value, &pointer).is_ok());
-        assert!(builder.load(&integer, &pointer).unwrap().as_ir().contains("load i32"));
+        assert!(
+            builder
+                .load(&integer, &pointer)
+                .unwrap()
+                .as_ir()
+                .contains("load i32")
+        );
     }
 
     #[test]

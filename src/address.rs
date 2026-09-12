@@ -63,11 +63,13 @@ mod tests {
         let pointer = builder.alloca(&integer).unwrap();
         let index = Value::integer(&integer, 0, false);
 
-        assert!(builder
-            .gep(&integer, &pointer, &[index])
-            .unwrap()
-            .as_ir()
-            .contains("getelementptr i32"));
+        assert!(
+            builder
+                .gep(&integer, &pointer, &[index])
+                .unwrap()
+                .as_ir()
+                .contains("getelementptr i32")
+        );
     }
 
     #[test]

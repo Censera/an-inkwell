@@ -6,9 +6,9 @@ mod builder;
 mod context;
 mod error;
 mod function;
-mod load_store;
 #[cfg(test)]
 mod ir_tests;
+mod load_store;
 mod module;
 mod r#type;
 mod value;
