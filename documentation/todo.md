@@ -9,18 +9,18 @@
 - [x] Add `Context` ownership.
 - [x] Add `Module` ownership.
 - [x] Add `Builder` ownership.
-- [ ] Add crate-level tests for context, module, and builder lifetime behavior.
+- [x] Add crate-level tests for context, module, and builder lifetime behavior.
 
 ## Types
 
-- [ ] Add integer types.
-- [ ] Add floating-point types.
-- [ ] Add void type.
-- [ ] Add pointer types.
-- [ ] Add array types.
-- [ ] Add vector types.
-- [ ] Add struct types.
-- [ ] Add function types.
+- [x] Add integer types.
+- [x] Add floating-point types.
+- [x] Add void type.
+- [x] Add pointer types.
+- [x] Add array types.
+- [x] Add vector types.
+- [x] Add struct types.
+- [x] Add function types.
 
 ## Values
 
