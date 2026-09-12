@@ -3,19 +3,16 @@ use std::ptr::{NonNull, null_mut};
 
 use llvm_sys::core::{LLVMDisposeMessage, LLVMSetTarget};
 use llvm_sys::target::{
-    LLVMInitializeAArch64AsmPrinter, LLVMInitializeAArch64Target, LLVMInitializeAArch64TargetInfo,
-    LLVMInitializeAArch64TargetMC, LLVMInitializeX86AsmPrinter, LLVMInitializeX86Target,
-    LLVMInitializeX86TargetInfo, LLVMInitializeX86TargetMC, LLVMSetModuleDataLayout,
+    LLVMDisposeTargetData, LLVMInitializeAArch64AsmPrinter, LLVMInitializeAArch64Target,
+    LLVMInitializeAArch64TargetInfo, LLVMInitializeAArch64TargetMC, LLVMInitializeX86AsmPrinter,
+    LLVMInitializeX86Target, LLVMInitializeX86TargetInfo, LLVMInitializeX86TargetMC,
+    LLVMSetModuleDataLayout,
 };
 use llvm_sys::target_machine::{
     LLVMCodeGenFileType, LLVMCodeGenOptLevel, LLVMCodeModel, LLVMCreateTargetDataLayout,
     LLVMCreateTargetMachine, LLVMDisposeTargetMachine, LLVMGetTargetFromTriple, LLVMRelocMode,
     LLVMTargetMachineEmitToFile, LLVMTargetMachineRef, LLVMTargetRef,
 };
-use llvm_sys::target_machine::{
-    LLVMCodeGenLevelDefault, LLVMCodeModelDefault, LLVMRelocDefault,
-};
-use llvm_sys::target::{LLVMDisposeTargetData};
 
 use crate::{Error, Module};
 
