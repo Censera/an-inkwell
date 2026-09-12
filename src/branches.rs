@@ -42,22 +42,31 @@ mod tests {
     use super::Builder;
     use crate::{Context, Type, Value};
 
-    fn function(context: &Context) -> (Builder<'_>, crate::Block<'_>, crate::Block<'_>, crate::Block<'_>) {
+    fn function(
+        context: &Context,
+    ) -> (
+        crate::Module<'_>,
+        Builder<'_>,
+        crate::Block<'_>,
+        crate::Block<'_>,
+        crate::Block<'_>,
+    ) {
         let module = context.module("test").unwrap();
         let builder = context.builder().unwrap();
-        let function_type = Type::function(&Type::void(context), &[], false).unwrap();
+        let void = Type::void(context);
+        let function_type = Type::function(&void, &[], false).unwrap();
         let function = module.function("main", &function_type).unwrap();
         let entry = function.block("entry").unwrap();
         let then_block = function.block("then").unwrap();
         let else_block = function.block("else").unwrap();
         builder.position(&entry).unwrap();
-        (builder, entry, then_block, else_block)
+        (module, builder, entry, then_block, else_block)
     }
 
     #[test]
     fn builds_branch() {
         let context = Context::create();
-        let (builder, _entry, then_block, _else_block) = function(&context);
+        let (_module, builder, _entry, then_block, _else_block) = function(&context);
 
         let branch = builder.br(&then_block).unwrap();
         assert!(branch.as_ir().contains("br label %then"));
@@ -66,25 +75,31 @@ mod tests {
     #[test]
     fn builds_conditional_branch() {
         let context = Context::create();
-        let (builder, _entry, then_block, else_block) = function(&context);
+        let (_module, builder, _entry, then_block, else_block) = function(&context);
         let boolean = Type::i1(&context);
         let condition = Value::integer(&boolean, 1, false);
 
         let branch = builder.cond_br(&condition, &then_block, &else_block).unwrap();
-        assert!(branch.as_ir().contains("br i1 true, label %then, label %else"));
+        assert!(branch
+            .as_ir()
+            .contains("br i1 true, label %then, label %else"));
     }
 
     #[test]
     fn rejects_branch_from_different_context() {
         let first = Context::create();
         let second = Context::create();
-        let (builder, _entry, then_block, _else_block) = function(&first);
+        let (_module, builder, _entry, then_block, _else_block) = function(&first);
         let module = second.module("test").unwrap();
-        let function_type = Type::function(&Type::void(&second), &[], false).unwrap();
+        let void = Type::void(&second);
+        let function_type = Type::function(&void, &[], false).unwrap();
         let function = module.function("main", &function_type).unwrap();
         let other_block = function.block("other").unwrap();
 
-        assert!(matches!(builder.br(&other_block), Err(crate::Error::DifferentContext)));
-        assert!(matches!(builder.br(&then_block), Ok(_)));
+        assert!(matches!(
+            builder.br(&other_block),
+            Err(crate::Error::DifferentContext)
+        ));
+        assert!(builder.br(&then_block).is_ok());
     }
 }
