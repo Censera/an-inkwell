@@ -79,10 +79,14 @@ mod tests {
         let boolean = Type::i1(&context);
         let condition = Value::integer(&boolean, 1, false);
 
-        let branch = builder.cond_br(&condition, &then_block, &else_block).unwrap();
-        assert!(branch
-            .as_ir()
-            .contains("br i1 true, label %then, label %else"));
+        let branch = builder
+            .cond_br(&condition, &then_block, &else_block)
+            .unwrap();
+        assert!(
+            branch
+                .as_ir()
+                .contains("br i1 true, label %then, label %else")
+        );
     }
 
     #[test]
