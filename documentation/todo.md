@@ -52,7 +52,7 @@ The workflow requires taking the first unchecked item and completing it before a
 
 ## Targets
 
-- [ ] Define target support required by Astery.
+- [x] Define target support required by Astery.
 - [ ] Add target initialization.
 - [ ] Add target machine support.
 - [ ] Add object emission.
