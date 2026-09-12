@@ -1,22 +1,13 @@
 use std::ptr::NonNull;
 
 use llvm_sys::core::{
-<<<<<<< HEAD
-    LLVMBuildAdd, LLVMBuildAnd, LLVMBuildAShr, LLVMBuildBitCast, LLVMBuildFAdd, LLVMBuildFCmp,
-    LLVMBuildFDiv, LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFPExt, LLVMBuildFPToSI,
-    LLVMBuildFPToUI, LLVMBuildFPTrunc, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp,
-    LLVMBuildIntToPtr, LLVMBuildLShr, LLVMBuildMul, LLVMBuildNeg, LLVMBuildNot, LLVMBuildOr,
-    LLVMBuildPtrToInt, LLVMBuildSDiv, LLVMBuildSExt, LLVMBuildSIToFP, LLVMBuildShl,
-    LLVMBuildSRem, LLVMBuildSub, LLVMBuildTrunc, LLVMBuildUDiv, LLVMBuildUIToFP, LLVMBuildURem,
-    LLVMBuildXor, LLVMBuildZExt, LLVMDisposeBuilder, LLVMGetIntTypeWidth, LLVMGetTypeKind,
-    LLVMPositionBuilderAtEnd, LLVMTypeOf,
-=======
-    LLVMBuildAShr, LLVMBuildAdd, LLVMBuildAnd, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv,
-    LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildLShr,
-    LLVMBuildMul, LLVMBuildNeg, LLVMBuildNot, LLVMBuildOr, LLVMBuildSDiv, LLVMBuildSRem,
-    LLVMBuildShl, LLVMBuildSub, LLVMBuildUDiv, LLVMBuildURem, LLVMBuildXor, LLVMDisposeBuilder,
-    LLVMGetIntTypeWidth, LLVMGetTypeKind, LLVMPositionBuilderAtEnd, LLVMTypeOf,
->>>>>>> 666704c (build)
+    LLVMBuildAShr, LLVMBuildAdd, LLVMBuildAnd, LLVMBuildBitCast, LLVMBuildFAdd, LLVMBuildFCmp,
+    LLVMBuildFDiv, LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFPExt, LLVMBuildFPToSI, LLVMBuildFPToUI,
+    LLVMBuildFPTrunc, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildIntToPtr,
+    LLVMBuildLShr, LLVMBuildMul, LLVMBuildNeg, LLVMBuildNot, LLVMBuildOr, LLVMBuildPtrToInt,
+    LLVMBuildSDiv, LLVMBuildSExt, LLVMBuildSIToFP, LLVMBuildSRem, LLVMBuildShl, LLVMBuildSub,
+    LLVMBuildTrunc, LLVMBuildUDiv, LLVMBuildUIToFP, LLVMBuildURem, LLVMBuildXor, LLVMBuildZExt,
+    LLVMDisposeBuilder, LLVMGetIntTypeWidth, LLVMGetTypeKind, LLVMPositionBuilderAtEnd, LLVMTypeOf,
 };
 use llvm_sys::prelude::LLVMBuilderRef;
 use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate, LLVMTypeKind};
@@ -126,43 +117,50 @@ impl<'ctx> Builder<'ctx> {
 
     pub fn add(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn sub(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn mul(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn sdiv(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildSDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn udiv(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildUDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildUDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn srem(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildSRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn urem(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildURem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildURem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -177,31 +175,36 @@ impl<'ctx> Builder<'ctx> {
 
     pub fn fadd(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fsub(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fmul(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fdiv(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn frem(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -252,15 +255,25 @@ impl<'ctx> Builder<'ctx> {
         Ok(Value::from_raw(self.context, raw))
     }
 
-    pub fn logical_and(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+    pub fn logical_and(
+        &self,
+        left: &Value<'ctx>,
+        right: &Value<'ctx>,
+    ) -> Result<Value<'ctx>, Error> {
         self.check_boolean(left, right)?;
-        let raw = unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
-    pub fn logical_or(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+    pub fn logical_or(
+        &self,
+        left: &Value<'ctx>,
+        right: &Value<'ctx>,
+    ) -> Result<Value<'ctx>, Error> {
         self.check_boolean(left, right)?;
-        let raw = unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -278,19 +291,22 @@ impl<'ctx> Builder<'ctx> {
 
     pub fn bit_and(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn bit_or(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn bit_xor(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildXor(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildXor(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -305,91 +321,114 @@ impl<'ctx> Builder<'ctx> {
 
     pub fn shl(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildShl(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildShl(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn lshr(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildLShr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildLShr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn ashr(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildAShr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildAShr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn trunc(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildTrunc(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildTrunc(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn zext(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildZExt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildZExt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn sext(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildSExt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSExt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fptoui(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildFPToUI(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildFPToUI(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fptosi(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildFPToSI(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildFPToSI(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn uitofp(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildUIToFP(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildUIToFP(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn sitofp(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildSIToFP(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildSIToFP(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fptrunc(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildFPTrunc(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildFPTrunc(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fpext(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildFPExt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFPExt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn ptrtoint(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildPtrToInt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildPtrToInt(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn inttoptr(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildIntToPtr(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildIntToPtr(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn bitcast(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check_target(value, target)?;
-        let raw = unsafe { LLVMBuildBitCast(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr()) };
+        let raw = unsafe {
+            LLVMBuildBitCast(self.as_raw(), value.as_raw(), target.as_raw(), c"".as_ptr())
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -404,7 +443,9 @@ impl<'ctx> Builder<'ctx> {
     }
 
     fn check_target(&self, value: &Value<'ctx>, target: &Type<'ctx>) -> Result<(), Error> {
-        if !std::ptr::eq(self.context, value.context()) || !std::ptr::eq(self.context, target.context()) {
+        if !std::ptr::eq(self.context, value.context())
+            || !std::ptr::eq(self.context, target.context())
+        {
             return Err(Error::DifferentContext);
         }
 
