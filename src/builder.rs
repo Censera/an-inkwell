@@ -1,11 +1,11 @@
 use std::ptr::NonNull;
 
 use llvm_sys::core::{
-    LLVMBuildAdd, LLVMBuildAnd, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv, LLVMBuildFMul,
-    LLVMBuildFNeg, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildMul, LLVMBuildNeg,
-    LLVMBuildNot, LLVMBuildOr, LLVMBuildSDiv, LLVMBuildSRem, LLVMBuildSub, LLVMBuildUDiv,
-    LLVMBuildURem, LLVMDisposeBuilder, LLVMGetIntTypeWidth, LLVMGetTypeKind,
-    LLVMPositionBuilderAtEnd, LLVMTypeOf,
+    LLVMBuildAdd, LLVMBuildAnd, LLVMBuildAShr, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv,
+    LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildLShr,
+    LLVMBuildMul, LLVMBuildNeg, LLVMBuildNot, LLVMBuildOr, LLVMBuildSDiv, LLVMBuildShl,
+    LLVMBuildSRem, LLVMBuildSub, LLVMBuildUDiv, LLVMBuildURem, LLVMBuildXor, LLVMDisposeBuilder,
+    LLVMGetIntTypeWidth, LLVMGetTypeKind, LLVMPositionBuilderAtEnd, LLVMTypeOf,
 };
 use llvm_sys::prelude::LLVMBuilderRef;
 use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate, LLVMTypeKind};
@@ -284,6 +284,57 @@ impl<'ctx> Builder<'ctx> {
         }
 
         let raw = unsafe { LLVMBuildNot(self.as_raw(), value.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn bit_and(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw =
+            unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn bit_or(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw =
+            unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn bit_xor(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw =
+            unsafe { LLVMBuildXor(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn bit_not(&self, value: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        if !std::ptr::eq(self.context, value.context()) {
+            return Err(Error::DifferentContext);
+        }
+
+        let raw = unsafe { LLVMBuildNot(self.as_raw(), value.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn shl(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw =
+            unsafe { LLVMBuildShl(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn lshr(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw =
+            unsafe { LLVMBuildLShr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn ashr(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw =
+            unsafe { LLVMBuildAShr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
