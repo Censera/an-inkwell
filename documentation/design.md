@@ -48,7 +48,7 @@ There is no runtime plugin system, registry, reflection layer, or hidden global 
 
 Inkwell is the primary API and implementation reference. Its useful concepts include a context that creates modules and builders and typed wrappers around LLVM objects. `an-inkwell` narrows that model instead of reproducing its full hierarchy.
 
-Astery 26.8 is the consumer reference. Its language design determines which LLVM types, values, operations, control flow, functions, pointers, aggregates, casts, and targets eventually belong in the library.
+Astery v26 is the consumer reference. Its language design determines which LLVM types, values, operations, control flow, functions, pointers, aggregates, casts, and targets eventually belong in the library.
 
 ## Naming
 
