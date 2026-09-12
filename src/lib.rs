@@ -2,6 +2,7 @@ mod address;
 mod aggregate;
 mod allocation;
 mod block;
+mod branches;
 mod builder;
 mod calls;
 mod context;
