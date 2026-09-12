@@ -2,15 +2,17 @@ mod builder;
 mod context;
 mod error;
 mod module;
+mod type_;
 
 pub use builder::Builder;
 pub use context::Context;
 pub use error::Error;
 pub use module::Module;
+pub use type_::Type;
 
 #[cfg(test)]
 mod tests {
-    use super::Context;
+    use super::{Context, Type};
 
     #[test]
     fn creates_module() {
@@ -27,6 +29,18 @@ mod tests {
     #[test]
     fn creates_builder() {
         let context = Context::create();
-        assert!(context.builder().is_ok());
+        let builder = context.builder();
+        assert!(builder.is_ok());
+    }
+
+    #[test]
+    fn creates_types_from_one_context() {
+        let context = Context::create();
+        let integer = Type::i32(&context);
+        let structure = Type::structure(&context, &[integer], false);
+        assert!(structure.is_ok());
     }
 }
+
+#[cfg(test)]
+mod type_tests;
