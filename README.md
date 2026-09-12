@@ -8,6 +8,6 @@ The library is published independently and developed as its own crate.
 
 ## Status
 
-Early design and implementation.
+Early design and implementation for Astery v26.
 
 See [`documentation/goal.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/goal.md), [`documentation/design.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/design.md), [`documentation/plan.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/plan.md), and [`documentation/todo.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/todo.md).
