@@ -1,16 +1,12 @@
 # Plan
 
-The library grows from the LLVM boundary outward.
+`an-inkwell` grows from the LLVM boundary outward. The plan defines the order of capabilities; `documentation/workflow.md` defines how each capability is completed.
 
-## 1. Foundation
+## Foundation
 
-- Establish the published crate.
-- Establish explicit error handling.
-- Own LLVM contexts, modules, and builders.
-- Keep raw handles private.
-- Keep the public surface small.
+Establish the crate, explicit errors, LLVM context ownership, module ownership, builder ownership, private raw handles, and the basic test structure.
 
-## 2. Types
+## Types
 
 Add only the LLVM types required by Astery v26:
 
@@ -23,44 +19,43 @@ Add only the LLVM types required by Astery v26:
 - Struct.
 - Function.
 
-Astery's language type set includes signed and unsigned integers, floating point values, booleans, characters, strings, non-null pointers, optional pointers, arrays, vectors, tuples, structs, and enums. The mapping from those language types to LLVM types belongs here only where code generation requires it.
+The mapping from Astery language types to LLVM types belongs here only where code generation requires it.
 
-## 3. Values
+## Values
 
-Add concrete value wrappers needed to construct and manipulate LLVM IR.
+Add concrete value wrappers needed to construct and manipulate LLVM IR. Distinguish values by actual LLVM behavior rather than reproducing a large hierarchy for symmetry.
 
-The design should distinguish values by actual LLVM behavior rather than reproduce a large enum hierarchy solely for API symmetry.
+## IR construction
 
-## 4. IR construction
+Complete the IR surface in small, independently tested operations:
 
-Add the operations Astery needs for:
-
-- Constants.
 - Arithmetic.
 - Comparisons.
-- Logical and bitwise operations.
+- Logical operations.
+- Bitwise operations.
 - Casts.
-- Loads and stores.
 - Allocation.
+- Load and store.
 - Address calculation.
 - Aggregate access.
-- Function calls.
+- Calls.
 - Returns.
 - Branches.
 - Conditional branches.
-- Basic blocks.
 - Phi values.
 
-## 5. Functions and aggregates
+Each operation becomes a separate TODO item and follows the workflow from selection through validation and commit.
 
-Support function declarations and definitions, parameters, return values, structs, arrays, vectors, and the operations needed by Astery's aggregate types.
+## Targets
 
-## 6. Targets
+Define and implement only the target support Astery actually requires:
 
-Add target initialization and target-machine functionality when Astery's compiler requires object generation or target-specific configuration.
+- Target initialization.
+- Target machine support.
+- Object emission.
 
-## 7. Backend use
+## Astery backend
 
-Replace Astery's direct Inkwell dependency with `an-inkwell` only after the required surface exists and is exercised by real Astery code.
+Use `an-inkwell` from real Astery backend code only after the required library surface has been implemented and exercised independently.
 
-The plan is intentionally sequential. A later layer does not justify implementing an earlier abstraction prematurely.
+The plan is deliberately sequential. A later requirement is evidence for a needed capability, not permission to implement its abstractions early.

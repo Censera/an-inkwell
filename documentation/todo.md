@@ -1,5 +1,7 @@
 # TODO
 
+The workflow requires taking the first unchecked item and completing it before advancing.
+
 ## Foundation
 
 - [x] Create the standalone crate.
@@ -60,3 +62,7 @@
 - [ ] Integrate the first real Astery backend path.
 - [ ] Remove the corresponding direct Inkwell dependency from Astery.
 - [ ] Keep `an-inkwell` independent from Astery's compiler internals.
+
+## Completion rule
+
+An item changes to `[x]` only after its implementation and tests are complete, `cargo fmt` and `cargo test` pass locally, all warnings are fixed, the ownership and lifetime model has been checked, and the completed work has an intentional commit.
