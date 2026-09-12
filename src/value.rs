@@ -110,7 +110,7 @@ impl<'ctx> Value<'ctx> {
         text
     }
 
-    fn from_raw(context: &'ctx Context, raw: LLVMValueRef) -> Self {
+    pub(crate) fn from_raw(context: &'ctx Context, raw: LLVMValueRef) -> Self {
         let raw = unsafe { NonNull::new_unchecked(raw.cast()) };
         Self { context, raw }
     }

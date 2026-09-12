@@ -33,7 +33,7 @@
 
 ## IR
 
-- [ ] Add arithmetic operations.
+- [x] Add arithmetic operations.
 - [ ] Add comparison operations.
 - [ ] Add logical operations.
 - [ ] Add bitwise operations.

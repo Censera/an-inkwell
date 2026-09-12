@@ -3,6 +3,7 @@ mod builder;
 mod context;
 mod error;
 mod function;
+mod ir_tests;
 mod module;
 mod r#type;
 mod value;
