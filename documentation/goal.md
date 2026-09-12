@@ -10,7 +10,7 @@ The library is not an Inkwell fork and does not aim for API compatibility with I
 
 The library exists to give Astery a direct, explicit LLVM interface for its compiler backend.
 
-Astery 26.8 is statically typed and includes integers, floating point values, booleans, characters, strings, pointers, arrays, vectors, tuples, structs, enums, functions, casts, control flow, function attributes, variadic functions, macros, and C embedding. These language features define the eventual LLVM surface that the library must support.
+Astery v26 is statically typed and includes integers, floating point values, booleans, characters, strings, pointers, arrays, vectors, tuples, structs, enums, functions, casts, control flow, function attributes, variadic functions, macros, and C embedding. These language features define the eventual LLVM surface that the library must support.
 
 Astery is intended to be compiled and statically typed, with LLVM serving the compiler rather than defining the language itself.
 
