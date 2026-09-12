@@ -1,6 +1,7 @@
 use std::ptr::NonNull;
 
 use llvm_sys::core::{
+<<<<<<< HEAD
     LLVMBuildAdd, LLVMBuildAnd, LLVMBuildAShr, LLVMBuildBitCast, LLVMBuildFAdd, LLVMBuildFCmp,
     LLVMBuildFDiv, LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFPExt, LLVMBuildFPToSI,
     LLVMBuildFPToUI, LLVMBuildFPTrunc, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp,
@@ -9,6 +10,13 @@ use llvm_sys::core::{
     LLVMBuildSRem, LLVMBuildSub, LLVMBuildTrunc, LLVMBuildUDiv, LLVMBuildUIToFP, LLVMBuildURem,
     LLVMBuildXor, LLVMBuildZExt, LLVMDisposeBuilder, LLVMGetIntTypeWidth, LLVMGetTypeKind,
     LLVMPositionBuilderAtEnd, LLVMTypeOf,
+=======
+    LLVMBuildAShr, LLVMBuildAdd, LLVMBuildAnd, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv,
+    LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildLShr,
+    LLVMBuildMul, LLVMBuildNeg, LLVMBuildNot, LLVMBuildOr, LLVMBuildSDiv, LLVMBuildSRem,
+    LLVMBuildShl, LLVMBuildSub, LLVMBuildUDiv, LLVMBuildURem, LLVMBuildXor, LLVMDisposeBuilder,
+    LLVMGetIntTypeWidth, LLVMGetTypeKind, LLVMPositionBuilderAtEnd, LLVMTypeOf,
+>>>>>>> 666704c (build)
 };
 use llvm_sys::prelude::LLVMBuilderRef;
 use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate, LLVMTypeKind};
