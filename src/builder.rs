@@ -102,7 +102,7 @@ impl<'ctx> Builder<'ctx> {
         Ok(Self { context, raw })
     }
 
-    pub fn context(&self) -> &Context {
+    pub fn context(&self) -> &'ctx Context {
         self.context
     }
 
