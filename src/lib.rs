@@ -3,6 +3,7 @@ mod aggregate;
 mod allocation;
 mod block;
 mod builder;
+mod calls;
 mod context;
 mod error;
 mod function;
@@ -11,6 +12,7 @@ mod ir_tests;
 mod load_store;
 mod module;
 mod r#type;
+mod returns;
 mod value;
 
 pub use block::Block;
