@@ -54,7 +54,8 @@ mod tests {
         let module = context.module("test").unwrap();
         let builder = context.builder().unwrap();
         let integer = Type::i32(context);
-        let function_type = Type::function(&integer, &[integer], false).unwrap();
+        let parameter = Type::i32(context);
+        let function_type = Type::function(&integer, &[parameter], false).unwrap();
         let function = module.function("add", &function_type).unwrap();
         let block = function.block("entry").unwrap();
         builder.position(&block).unwrap();
