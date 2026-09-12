@@ -53,7 +53,8 @@ impl<'ctx> Function<'ctx> {
         }
 
         let name = std::ffi::CString::new(name)?;
-        let raw = unsafe { LLVMAddFunction(module.as_raw(), name.as_ptr(), function_type.as_raw()) };
+        let raw =
+            unsafe { LLVMAddFunction(module.as_raw(), name.as_ptr(), function_type.as_raw()) };
         Self::from_raw(context, raw)
     }
 

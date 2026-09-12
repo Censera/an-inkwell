@@ -38,10 +38,7 @@ impl<'ctx> Value<'ctx> {
         }))
     }
 
-    pub fn array(
-        element: &'ctx Type<'ctx>,
-        values: &[Value<'ctx>],
-    ) -> Result<Self, Error> {
+    pub fn array(element: &'ctx Type<'ctx>, values: &[Value<'ctx>]) -> Result<Self, Error> {
         for value in values {
             if !std::ptr::eq(element.context(), value.context) {
                 return Err(Error::DifferentContext);
@@ -49,13 +46,8 @@ impl<'ctx> Value<'ctx> {
         }
 
         let mut values = values.iter().map(Self::as_raw).collect::<Vec<_>>();
-        let raw = unsafe {
-            LLVMConstArray2(
-                element.as_raw(),
-                values.as_mut_ptr(),
-                values.len() as u64,
-            )
-        };
+        let raw =
+            unsafe { LLVMConstArray2(element.as_raw(), values.as_mut_ptr(), values.len() as u64) };
 
         Ok(Self::from_raw(element.context(), raw))
     }
@@ -88,9 +80,8 @@ impl<'ctx> Value<'ctx> {
         }
 
         let mut values = values.iter().map(Self::as_raw).collect::<Vec<_>>();
-        let raw = unsafe {
-            LLVMConstStruct(values.as_mut_ptr(), values.len() as u32, packed as i32)
-        };
+        let raw =
+            unsafe { LLVMConstStruct(values.as_mut_ptr(), values.len() as u32, packed as i32) };
         Ok(Self::from_raw(first.context, raw))
     }
 

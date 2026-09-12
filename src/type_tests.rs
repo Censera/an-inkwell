@@ -7,9 +7,15 @@ fn creates_scalar_types() {
     let context = Context::create();
 
     assert_eq!(Type::void(&context).kind(), LLVMTypeKind::LLVMVoidTypeKind);
-    assert_eq!(Type::i32(&context).kind(), LLVMTypeKind::LLVMIntegerTypeKind);
+    assert_eq!(
+        Type::i32(&context).kind(),
+        LLVMTypeKind::LLVMIntegerTypeKind
+    );
     assert_eq!(Type::f64(&context).kind(), LLVMTypeKind::LLVMDoubleTypeKind);
-    assert_eq!(Type::pointer(&context, 0).kind(), LLVMTypeKind::LLVMPointerTypeKind);
+    assert_eq!(
+        Type::pointer(&context, 0).kind(),
+        LLVMTypeKind::LLVMPointerTypeKind
+    );
 }
 
 #[test]

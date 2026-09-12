@@ -1,6 +1,7 @@
 use std::ptr::NonNull;
 
 use llvm_sys::{
+    LLVMTypeKind,
     core::{
         LLVMArrayType2, LLVMDisposeMessage, LLVMDoubleTypeInContext, LLVMFloatTypeInContext,
         LLVMFunctionType, LLVMGetTypeKind, LLVMInt1TypeInContext, LLVMInt8TypeInContext,
@@ -9,7 +10,6 @@ use llvm_sys::{
         LLVMStructTypeInContext, LLVMVectorType, LLVMVoidTypeInContext,
     },
     prelude::LLVMTypeRef,
-    LLVMTypeKind,
 };
 
 use crate::{Context, Error};
@@ -45,10 +45,9 @@ impl<'ctx> Type<'ctx> {
     }
 
     pub fn integer(context: &'ctx Context, bits: u32) -> Self {
-        Self::from_raw(
-            context,
-            unsafe { LLVMIntTypeInContext(context.as_raw(), bits) },
-        )
+        Self::from_raw(context, unsafe {
+            LLVMIntTypeInContext(context.as_raw(), bits)
+        })
     }
 
     pub fn f32(context: &'ctx Context) -> Self {
@@ -56,14 +55,15 @@ impl<'ctx> Type<'ctx> {
     }
 
     pub fn f64(context: &'ctx Context) -> Self {
-        Self::from_raw(context, unsafe { LLVMDoubleTypeInContext(context.as_raw()) })
+        Self::from_raw(context, unsafe {
+            LLVMDoubleTypeInContext(context.as_raw())
+        })
     }
 
     pub fn pointer(context: &'ctx Context, address_space: u32) -> Self {
-        Self::from_raw(
-            context,
-            unsafe { LLVMPointerTypeInContext(context.as_raw(), address_space) },
-        )
+        Self::from_raw(context, unsafe {
+            LLVMPointerTypeInContext(context.as_raw(), address_space)
+        })
     }
 
     pub fn array(element: &Self, count: u64) -> Self {

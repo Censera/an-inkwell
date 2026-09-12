@@ -18,16 +18,76 @@ fn builds_integer_comparisons() {
     let first = Value::integer(&integer, 20, true);
     let second = Value::integer(&integer, 4, true);
 
-    assert!(builder.icmp(IntPredicate::Eq, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.icmp(IntPredicate::Ne, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.icmp(IntPredicate::Ugt, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.icmp(IntPredicate::Uge, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.icmp(IntPredicate::Ult, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.icmp(IntPredicate::Ule, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.icmp(IntPredicate::Sgt, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.icmp(IntPredicate::Sge, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.icmp(IntPredicate::Slt, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.icmp(IntPredicate::Sle, &first, &second).unwrap().as_ir().contains("i1 false"));
+    assert!(
+        builder
+            .icmp(IntPredicate::Eq, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Ne, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Ugt, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Uge, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Ult, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Ule, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Sgt, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Sge, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Slt, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .icmp(IntPredicate::Sle, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
 }
 
 #[test]
@@ -38,22 +98,118 @@ fn builds_floating_comparisons() {
     let first = Value::float(&float, 20.0);
     let second = Value::float(&float, 4.0);
 
-    assert!(builder.fcmp(FloatPredicate::False, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Oeq, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Ogt, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::Oge, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::Olt, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Ole, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::One, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::Ord, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::Uno, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Ueq, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Ugt, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::Uge, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::Ult, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Ule, &first, &second).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.fcmp(FloatPredicate::Une, &first, &second).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.fcmp(FloatPredicate::True, &first, &second).unwrap().as_ir().contains("i1 true"));
+    assert!(
+        builder
+            .fcmp(FloatPredicate::False, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Oeq, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ogt, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Oge, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Olt, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ole, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::One, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ord, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Uno, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ueq, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ugt, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Uge, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ult, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Ule, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::Une, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .fcmp(FloatPredicate::True, &first, &second)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
 }
 
 #[test]
@@ -64,12 +220,48 @@ fn builds_logical_operations() {
     let true_value = Value::integer(&boolean, 1, false);
     let false_value = Value::integer(&boolean, 0, false);
 
-    assert!(builder.logical_and(&true_value, &true_value).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.logical_and(&true_value, &false_value).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.logical_or(&true_value, &false_value).unwrap().as_ir().contains("i1 true"));
-    assert!(builder.logical_or(&false_value, &false_value).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.logical_not(&true_value).unwrap().as_ir().contains("i1 false"));
-    assert!(builder.logical_not(&false_value).unwrap().as_ir().contains("i1 true"));
+    assert!(
+        builder
+            .logical_and(&true_value, &true_value)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .logical_and(&true_value, &false_value)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .logical_or(&true_value, &false_value)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
+    assert!(
+        builder
+            .logical_or(&false_value, &false_value)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .logical_not(&true_value)
+            .unwrap()
+            .as_ir()
+            .contains("i1 false")
+    );
+    assert!(
+        builder
+            .logical_not(&false_value)
+            .unwrap()
+            .as_ir()
+            .contains("i1 true")
+    );
 }
 
 #[test]
@@ -88,7 +280,10 @@ fn rejects_non_boolean_logical_operands() {
         builder.logical_or(&first, &second),
         Err(super::Error::NotBoolean)
     ));
-    assert!(matches!(builder.logical_not(&first), Err(super::Error::NotBoolean)));
+    assert!(matches!(
+        builder.logical_not(&first),
+        Err(super::Error::NotBoolean)
+    ));
 }
 
 #[test]
@@ -101,5 +296,9 @@ fn rejects_comparisons_from_different_contexts() {
     let first_value = Value::integer(&first_type, 1, true);
     let second_value = Value::integer(&second_type, 2, true);
 
-    assert!(builder.icmp(IntPredicate::Eq, &first_value, &second_value).is_err());
+    assert!(
+        builder
+            .icmp(IntPredicate::Eq, &first_value, &second_value)
+            .is_err()
+    );
 }

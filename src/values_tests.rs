@@ -7,8 +7,16 @@ fn creates_scalar_values() {
     let float = Type::f64(&context);
     let pointer = Type::pointer(&context, 0);
 
-    assert!(Value::integer(&integer, 42, true).as_ir().contains("i32 42"));
-    assert!(Value::float(&float, 3.5).as_ir().contains("double 3.500000e+00"));
+    assert!(
+        Value::integer(&integer, 42, true)
+            .as_ir()
+            .contains("i32 42")
+    );
+    assert!(
+        Value::float(&float, 3.5)
+            .as_ir()
+            .contains("double 3.500000e+00")
+    );
     assert!(Value::null(&pointer).unwrap().as_ir().contains("null"));
 }
 

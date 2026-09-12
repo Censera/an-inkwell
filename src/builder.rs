@@ -115,43 +115,50 @@ impl<'ctx> Builder<'ctx> {
 
     pub fn add(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn sub(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn mul(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn sdiv(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildSDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn udiv(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildUDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildUDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn srem(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildSRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildSRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn urem(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildURem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildURem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -166,31 +173,36 @@ impl<'ctx> Builder<'ctx> {
 
     pub fn fadd(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFAdd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fsub(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFSub(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fmul(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFMul(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn fdiv(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFDiv(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
     pub fn frem(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
         self.check(left, right)?;
-        let raw = unsafe { LLVMBuildFRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildFRem(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -241,15 +253,25 @@ impl<'ctx> Builder<'ctx> {
         Ok(Value::from_raw(self.context, raw))
     }
 
-    pub fn logical_and(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+    pub fn logical_and(
+        &self,
+        left: &Value<'ctx>,
+        right: &Value<'ctx>,
+    ) -> Result<Value<'ctx>, Error> {
         self.check_boolean(left, right)?;
-        let raw = unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildAnd(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
-    pub fn logical_or(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<Value<'ctx>, Error> {
+    pub fn logical_or(
+        &self,
+        left: &Value<'ctx>,
+        right: &Value<'ctx>,
+    ) -> Result<Value<'ctx>, Error> {
         self.check_boolean(left, right)?;
-        let raw = unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
+        let raw =
+            unsafe { LLVMBuildOr(self.as_raw(), left.as_raw(), right.as_raw(), c"".as_ptr()) };
         Ok(Value::from_raw(self.context, raw))
     }
 
@@ -266,7 +288,9 @@ impl<'ctx> Builder<'ctx> {
     }
 
     fn check(&self, left: &Value<'ctx>, right: &Value<'ctx>) -> Result<(), Error> {
-        if !std::ptr::eq(self.context, left.context()) || !std::ptr::eq(self.context, right.context()) {
+        if !std::ptr::eq(self.context, left.context())
+            || !std::ptr::eq(self.context, right.context())
+        {
             return Err(Error::DifferentContext);
         }
 
