@@ -10,4 +10,4 @@ The library is published independently and developed as its own crate.
 
 Early design and implementation.
 
-See [`documentation/goal.md`](documentation/goal.md), [`documentation/design.md`](documentation/design.md), [`documentation/plan.md`](documentation/plan.md), and [`documentation/todo.md`](documentation/todo.md).
+See [`documentation/goal.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/goal.md), [`documentation/design.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/design.md), [`documentation/plan.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/plan.md), and [`documentation/todo.md`](https://github.com/Censera/an-inkwell/blob/main/documentation/todo.md).
