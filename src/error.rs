@@ -5,6 +5,7 @@ pub enum Error {
     Name(NulError),
     ModuleCreation,
     BuilderCreation,
+    DifferentContext,
 }
 
 impl From<NulError> for Error {
@@ -19,6 +20,7 @@ impl std::fmt::Display for Error {
             Self::Name(error) => write!(formatter, "LLVM name contains an interior NUL: {error}"),
             Self::ModuleCreation => formatter.write_str("LLVM failed to create a module"),
             Self::BuilderCreation => formatter.write_str("LLVM failed to create a builder"),
+            Self::DifferentContext => formatter.write_str("LLVM types belong to different contexts"),
         }
     }
 }
