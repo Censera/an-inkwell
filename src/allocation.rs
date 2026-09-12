@@ -4,12 +4,12 @@ use crate::{Builder, Error, Type, Value};
 
 impl<'ctx> Builder<'ctx> {
     pub fn alloca(&self, ty: &Type<'ctx>) -> Result<Value<'ctx>, Error> {
-        if !std::ptr::eq(self.context, ty.context()) {
+        if !std::ptr::eq(self.context(), ty.context()) {
             return Err(Error::DifferentContext);
         }
 
         let raw = unsafe { LLVMBuildAlloca(self.as_raw(), ty.as_raw(), c"".as_ptr()) };
-        Ok(Value::from_raw(self.context, raw))
+        Ok(Value::from_raw(self.context(), raw))
     }
 }
 
