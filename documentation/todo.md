@@ -34,7 +34,7 @@
 ## IR
 
 - [x] Add arithmetic operations.
-- [ ] Add comparison operations.
+- [x] Add comparison operations.
 - [ ] Add logical operations.
 - [ ] Add bitwise operations.
 - [ ] Add casts.
