@@ -2,7 +2,7 @@ use std::ptr::NonNull;
 
 use llvm_sys::{
     core::{
-        LLVMArrayType, LLVMDisposeMessage, LLVMDoubleTypeInContext, LLVMFloatTypeInContext,
+        LLVMArrayType2, LLVMDisposeMessage, LLVMDoubleTypeInContext, LLVMFloatTypeInContext,
         LLVMFunctionType, LLVMGetTypeKind, LLVMInt1TypeInContext, LLVMInt8TypeInContext,
         LLVMInt16TypeInContext, LLVMInt32TypeInContext, LLVMInt64TypeInContext,
         LLVMIntTypeInContext, LLVMPointerTypeInContext, LLVMPrintTypeToString,
@@ -66,9 +66,9 @@ impl<'ctx> Type<'ctx> {
         )
     }
 
-    pub fn array(element: &Self, count: u32) -> Self {
+    pub fn array(element: &Self, count: u64) -> Self {
         Self::from_raw(element.context, unsafe {
-            LLVMArrayType(element.as_raw(), count)
+            LLVMArrayType2(element.as_raw(), count)
         })
     }
 
