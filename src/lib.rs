@@ -1,3 +1,4 @@
+mod allocation;
 mod block;
 mod builder;
 mod context;
