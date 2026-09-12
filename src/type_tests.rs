@@ -23,7 +23,7 @@ fn creates_composite_types() {
 
     assert_eq!(array.kind(), LLVMTypeKind::LLVMArrayTypeKind);
     assert_eq!(vector.kind(), LLVMTypeKind::LLVMVectorTypeKind);
-    assert_eq!(structure.kind(), LLVMTypeKindKind::LLVMStructTypeKind);
+    assert_eq!(structure.kind(), LLVMTypeKind::LLVMStructTypeKind);
     assert_eq!(function.kind(), LLVMTypeKind::LLVMFunctionTypeKind);
 }
 
