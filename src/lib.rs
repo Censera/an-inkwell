@@ -12,6 +12,7 @@ mod function;
 mod ir_tests;
 mod load_store;
 mod module;
+mod phi;
 mod returns;
 mod r#type;
 mod value;
