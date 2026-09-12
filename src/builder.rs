@@ -1,13 +1,89 @@
 use std::ptr::NonNull;
 
 use llvm_sys::core::{
-    LLVMBuildAdd, LLVMBuildFAdd, LLVMBuildFDiv, LLVMBuildFMul, LLVMBuildFNeg, LLVMBuildFRem,
-    LLVMBuildFSub, LLVMBuildMul, LLVMBuildNeg, LLVMBuildSDiv, LLVMBuildSRem, LLVMBuildSub,
-    LLVMBuildUDiv, LLVMBuildURem, LLVMDisposeBuilder, LLVMPositionBuilderAtEnd,
+    LLVMBuildAdd, LLVMBuildFAdd, LLVMBuildFCmp, LLVMBuildFDiv, LLVMBuildFMul, LLVMBuildFNeg,
+    LLVMBuildFRem, LLVMBuildFSub, LLVMBuildICmp, LLVMBuildMul, LLVMBuildNeg, LLVMBuildSDiv,
+    LLVMBuildSRem, LLVMBuildSub, LLVMBuildUDiv, LLVMBuildURem, LLVMDisposeBuilder,
+    LLVMPositionBuilderAtEnd,
 };
+use llvm_sys::{LLVMIntPredicate, LLVMRealPredicate};
 use llvm_sys::prelude::LLVMBuilderRef;
 
 use crate::{Block, Context, Error, Value};
+
+#[derive(Clone, Copy, Debug)]
+pub enum IntPredicate {
+    Eq,
+    Ne,
+    Ugt,
+    Uge,
+    Ult,
+    Ule,
+    Sgt,
+    Sge,
+    Slt,
+    Sle,
+}
+
+impl IntPredicate {
+    fn raw(self) -> LLVMIntPredicate {
+        match self {
+            Self::Eq => LLVMIntPredicate::LLVMIntEQ,
+            Self::Ne => LLVMIntPredicate::LLVMIntNE,
+            Self::Ugt => LLVMIntPredicate::LLVMIntUGT,
+            Self::Uge => LLVMIntPredicate::LLVMIntUGE,
+            Self::Ult => LLVMIntPredicate::LLVMIntULT,
+            Self::Ule => LLVMIntPredicate::LLVMIntULE,
+            Self::Sgt => LLVMIntPredicate::LLVMIntSGT,
+            Self::Sge => LLVMIntPredicate::LLVMIntSGE,
+            Self::Slt => LLVMIntPredicate::LLVMIntSLT,
+            Self::Sle => LLVMIntPredicate::LLVMIntSLE,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum FloatPredicate {
+    False,
+    Oeq,
+    Ogt,
+    Oge,
+    Olt,
+    Ole,
+    One,
+    Ord,
+    Uno,
+    Ueq,
+    Ugt,
+    Uge,
+    Ult,
+    Ule,
+    Une,
+    True,
+}
+
+impl FloatPredicate {
+    fn raw(self) -> LLVMRealPredicate {
+        match self {
+            Self::False => LLVMRealPredicate::LLVMRealPredicateFalse,
+            Self::Oeq => LLVMRealPredicate::LLVMRealOEQ,
+            Self::Ogt => LLVMRealPredicate::LLVMRealOGT,
+            Self::Oge => LLVMRealPredicate::LLVMRealOGE,
+            Self::Olt => LLVMRealPredicate::LLVMRealOLT,
+            Self::Ole => LLVMRealPredicate::LLVMRealOLE,
+            Self::One => LLVMRealPredicate::LLVMRealONE,
+            Self::Ord => LLVMRealPredicate::LLVMRealORD,
+            Self::Uno => LLVMRealPredicate::LLVMRealUNO,
+            Self::Ueq => LLVMRealPredicate::LLVMRealUEQ,
+            Self::Ugt => LLVMRealPredicate::LLVMRealUGT,
+            Self::Uge => LLVMRealPredicate::LLVMRealUGE,
+            Self::Ult => LLVMRealPredicate::LLVMRealULT,
+            Self::Ule => LLVMRealPredicate::LLVMRealULE,
+            Self::Une => LLVMRealPredicate::LLVMRealUNE,
+            Self::True => LLVMRealPredicate::LLVMRealPredicateTrue,
+        }
+    }
+}
 
 pub struct Builder<'ctx> {
     context: &'ctx Context,
@@ -123,6 +199,44 @@ impl<'ctx> Builder<'ctx> {
         }
 
         let raw = unsafe { LLVMBuildFNeg(self.as_raw(), value.as_raw(), c"".as_ptr()) };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn icmp(
+        &self,
+        predicate: IntPredicate,
+        left: &Value<'ctx>,
+        right: &Value<'ctx>,
+    ) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw = unsafe {
+            LLVMBuildICmp(
+                self.as_raw(),
+                predicate.raw(),
+                left.as_raw(),
+                right.as_raw(),
+                c"".as_ptr(),
+            )
+        };
+        Ok(Value::from_raw(self.context, raw))
+    }
+
+    pub fn fcmp(
+        &self,
+        predicate: FloatPredicate,
+        left: &Value<'ctx>,
+        right: &Value<'ctx>,
+    ) -> Result<Value<'ctx>, Error> {
+        self.check(left, right)?;
+        let raw = unsafe {
+            LLVMBuildFCmp(
+                self.as_raw(),
+                predicate.raw(),
+                left.as_raw(),
+                right.as_raw(),
+                c"".as_ptr(),
+            )
+        };
         Ok(Value::from_raw(self.context, raw))
     }
 
