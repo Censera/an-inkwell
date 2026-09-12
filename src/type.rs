@@ -126,7 +126,7 @@ impl<'ctx> Type<'ctx> {
         Ok(Self::from_raw(return_type.context, raw))
     }
 
-    pub fn context(&self) -> &Context {
+    pub fn context(&self) -> &'ctx Context {
         self.context
     }
 
