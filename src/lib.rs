@@ -1,9 +1,11 @@
+mod address;
 mod allocation;
 mod block;
 mod builder;
 mod context;
 mod error;
 mod function;
+mod load_store;
 #[cfg(test)]
 mod ir_tests;
 mod module;
