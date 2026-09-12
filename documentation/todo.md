@@ -41,8 +41,8 @@ The workflow requires taking the first unchecked item and completing it before a
 - [x] Add bitwise operations.
 - [x] Add casts.
 - [x] Add allocation.
-- [ ] Add load and store.
-- [ ] Add address calculation.
+- [x] Add load and store.
+- [x] Add address calculation.
 - [ ] Add aggregate access.
 - [ ] Add calls.
 - [ ] Add returns.
