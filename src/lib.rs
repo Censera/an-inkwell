@@ -10,7 +10,7 @@ mod r#type;
 mod value;
 
 pub use block::Block;
-pub use builder::Builder;
+pub use builder::{Builder, FloatPredicate, IntPredicate};
 pub use context::Context;
 pub use error::Error;
 pub use function::Function;
