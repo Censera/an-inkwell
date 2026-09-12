@@ -48,7 +48,7 @@ The workflow requires taking the first unchecked item and completing it before a
 - [x] Add returns.
 - [x] Add branches.
 - [x] Add conditional branches.
-- [ ] Add phi values.
+- [x] Add phi values.
 
 ## Targets
 
