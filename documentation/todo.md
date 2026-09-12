@@ -44,8 +44,8 @@ The workflow requires taking the first unchecked item and completing it before a
 - [x] Add load and store.
 - [x] Add address calculation.
 - [x] Add aggregate access.
-- [ ] Add calls.
-- [ ] Add returns.
+- [x] Add calls.
+- [x] Add returns.
 - [ ] Add branches.
 - [ ] Add conditional branches.
 - [ ] Add phi values.
