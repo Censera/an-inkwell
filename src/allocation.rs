@@ -18,13 +18,7 @@ mod tests {
     use super::Builder;
     use crate::{Context, Error, Type};
 
-    fn function(
-        context: &Context,
-    ) -> (
-        crate::Module<'_>,
-        Builder<'_>,
-        crate::Block<'_>,
-    ) {
+    fn function(context: &Context) -> (crate::Module<'_>, Builder<'_>, crate::Block<'_>) {
         let module = context.module("test").unwrap();
         let builder = context.builder().unwrap();
         let function_type = Type::function(&Type::void(context), &[], false).unwrap();
@@ -40,11 +34,13 @@ mod tests {
         let (_module, builder, _block) = function(&context);
         let integer = Type::i32(&context);
 
-        assert!(builder
-            .alloca(&integer)
-            .unwrap()
-            .as_ir()
-            .contains("alloca i32"));
+        assert!(
+            builder
+                .alloca(&integer)
+                .unwrap()
+                .as_ir()
+                .contains("alloca i32")
+        );
     }
 
     #[test]
