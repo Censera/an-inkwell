@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 description = "Astery's Narrower Inkwell"
 repository = "https://github.com/Censera/an-inkwell"
+documentation = "https://docs.rs/an-inkwell"
 readme = "README.md"
 license = "Apache-2.0"
 keywords = ["llvm", "compiler", "codegen"]
