@@ -46,8 +46,8 @@ The workflow requires taking the first unchecked item and completing it before a
 - [x] Add aggregate access.
 - [x] Add calls.
 - [x] Add returns.
-- [ ] Add branches.
-- [ ] Add conditional branches.
+- [x] Add branches.
+- [x] Add conditional branches.
 - [ ] Add phi values.
 
 ## Targets
