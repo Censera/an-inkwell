@@ -12,7 +12,7 @@ The library grows from the LLVM boundary outward.
 
 ## 2. Types
 
-Add only the LLVM types required by Astery 26.8:
+Add only the LLVM types required by Astery v26:
 
 - Void.
 - Integer.
