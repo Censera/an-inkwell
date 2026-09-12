@@ -23,7 +23,11 @@ impl<'ctx> Module<'ctx> {
         self.context
     }
 
-    pub fn function(&self, name: &str, function_type: &Type<'ctx>) -> Result<Function<'ctx>, Error> {
+    pub fn function(
+        &'ctx self,
+        name: &str,
+        function_type: &Type<'ctx>,
+    ) -> Result<Function<'ctx>, Error> {
         Function::from_module(self, name, function_type)
     }
 
